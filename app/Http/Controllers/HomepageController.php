@@ -2,6 +2,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\DB;
+
 class HomepageController extends Controller
 {
     public function homepage(){

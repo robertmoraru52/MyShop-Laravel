@@ -9,6 +9,7 @@ use App\Http\Controllers\ResetPasswordController;
 use App\Http\Controllers\SignOutController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\ProductsController;
+// use App\Http\Controllers\SearchController;
 
 /*
 |--------------------------------------------------------------------------
@@ -43,3 +44,5 @@ Route::post('details',[ProductsController::class, 'viewProductDetails'])->name('
 Route::get('account', [HomepageController::class, 'accountView'])->middleware('auth');
 //Change Password
 Route::post('change-password', [ResetPasswordController::class, 'changePassword'])->middleware('auth.session');
+//test
+// Route::get('autocomplete', [SearchController::class, 'autocomplete'])->name('autocomplete');

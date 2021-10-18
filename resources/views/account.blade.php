@@ -85,8 +85,8 @@
                         {{ session()->get('errors') }}
                     </div>
                 @endif
+            </div>
         </div>
     </div>
-</div>
 </div>
 @include('footer')

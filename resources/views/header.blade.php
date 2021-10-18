@@ -55,10 +55,12 @@
                 <div class="d-lg-flex align-items-center border ms-5">
                     <div class="dropdown w-100 my-lg-0 my-2"> <button class="btn btn-secondary d-flex justify-content-between align-items-center" type="button" id="dropdownMenu" data-bs-toggle="dropdown" aria-expanded="true"> <span class=" w-100 d-flex align-items-center"> 
                     </div>
-                    <form action="../back_end/search_category_nav.php" method="POST" class="d-flex align-items-center w-100 h-100 ps-lg-0 ps-sm-3">
+                    {{-- Search Nav --}}
+                    <form action="" method="POST" class="d-flex align-items-center w-100 h-100 ps-lg-0 ps-sm-3">
                         <input name="search_cat" id="search_cat_navbar" class=" ps-md-0 ps-3" type="text" placeholder="search for a product" style="background-color: rgb(194, 194, 194);">
                         <button class="btn btn-primary d-flex align-items-center justify-content-center" type="submit" name="submit_search"><i class="fas fa-search"></i></button>
                     </form>
+                    {{-- End Search Nav --}}
                 </div>
                 <div class="d-flex align-items-center ms-lg-auto mt-lg-0 mt-3 pe-2"> <span class="me-2 fas fa-phone bg-light rounded-circle" id="phone"></span>
                     <div class="d-flex flex-column ps-2">
@@ -75,4 +77,3 @@
         <div id="s_paragraph" ></div>
     </div>
 </div>
-<div id="cat-header"></div>

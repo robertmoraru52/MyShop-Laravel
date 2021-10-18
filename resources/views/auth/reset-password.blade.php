@@ -1,5 +1,4 @@
 @include('.header')
-
 <main class="signup-form">
     <div class="cotainer">
         <div class="row justify-content-center">
@@ -7,7 +6,6 @@
                 <div class="card my-5">
                     <h3 class="card-header text-center">Change Password</h3>
                     <div class="card-body">
-
                     <form action="{{route('password.update')}}" method="POST">
                             @csrf
                             <div class="form-group mb-3">

@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -12,6 +11,4 @@ class User extends Authenticatable implements CanResetPassword
     use Notifiable;
     use HasFactory;
     protected $fillable = ['email','password','remember_token'];
-
-    
 } 

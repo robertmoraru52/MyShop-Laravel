@@ -7,7 +7,7 @@
                     <h3 class="card-header text-center">Login</h3>
                     <div class="card-body">
                         @if(session()->has('success'))
-                        <div class="alert alert-success">
+                        <div class="alert alert-danger">
                             {{ session()->get('success') }}
                         </div>
                         @endif

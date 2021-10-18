@@ -50,8 +50,7 @@ class ResetPasswordController extends Controller
     {
       if(Auth::Check())
       {
-        $request_data = $request->All();
-        
+          $request_data = $request->All();
           $current_password = Auth::User()->password;           
           if(Hash::check($request_data['current-password'], $current_password))
           {           
