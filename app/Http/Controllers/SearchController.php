@@ -11,7 +11,7 @@ class SearchController extends Controller
         $data = Product::select("name")
                 ->where("name","LIKE","%{$request->suggestion}%")
                 ->get();
-   
+
         return response()->json($data);
     }
 }

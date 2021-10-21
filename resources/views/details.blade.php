@@ -15,11 +15,11 @@
                         <p>{{$products->description}}</p>
                     </span>
                     <div class="modal-review__rating-order-wrap ms-5" >
-                                        <span data-rating-value="1"></span>
-                                        <span data-rating-value="2"></span>
-                                        <span data-rating-value="3"></span>
-                                        <span data-rating-value="4"></span>
-                                        <span data-rating-value="5"></span>
+                                    <span data-rating-value="1" data-value="{{ $products->id }}"></span>
+                                    <span data-rating-value="2" data-value="{{ $products->id }}"></span>
+                                    <span data-rating-value="3" data-value="{{ $products->id }}"></span>
+                                    <span data-rating-value="4" data-value="{{ $products->id }}"></span>
+                                    <span data-rating-value="5" data-value="{{ $products->id }}"></span>
                                     </div>
                                     <br><br>
                                     <p class="text-white">Votes:0</p>

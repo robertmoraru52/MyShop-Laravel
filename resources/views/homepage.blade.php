@@ -40,14 +40,14 @@
                                         <p class="card-text">{{$productList->name}}</p>
                                     </span>
                                     <div class="modal-review__rating-order-wrap ms-5" >
-                                        <span data-rating-value="1"></span>
-                                        <span data-rating-value="2"></span>
-                                        <span data-rating-value="3"></span>
-                                        <span data-rating-value="4"></span>
-                                        <span data-rating-value="5"></span>
+                                        <span data-rating-value="1" data-value="{{ $productList->id }}"></span>
+                                        <span data-rating-value="2" data-value="{{ $productList->id }}"></span>
+                                        <span data-rating-value="3" data-value="{{ $productList->id }}"></span>
+                                        <span data-rating-value="4" data-value="{{ $productList->id }}"></span>
+                                        <span data-rating-value="5" data-value="{{ $productList->id }}"></span>
                                     </div>
                                     <br><br>
-                                    <p class="text-white">Votes:0</p>
+                                <p class="text-white">Rating: {{ $productList->stars }}/5</p>
                                     <br><br>
                                     <p class="text-white" id="ratings"></p>
                                     <span style="color: rgb(240, 43, 48);">

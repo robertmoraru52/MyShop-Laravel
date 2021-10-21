@@ -9,7 +9,8 @@ use App\Http\Controllers\ResetPasswordController;
 use App\Http\Controllers\SignOutController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\ProductsController;
-// use App\Http\Controllers\SearchController;
+use App\Http\Controllers\SearchController;
+use App\Http\Controllers\AdminController;
 
 /*
 |--------------------------------------------------------------------------
@@ -44,5 +45,10 @@ Route::post('details',[ProductsController::class, 'viewProductDetails'])->name('
 Route::get('account', [HomepageController::class, 'accountView'])->middleware('auth');
 //Change Password
 Route::post('change-password', [ResetPasswordController::class, 'changePassword'])->middleware('auth.session');
-//test
-// Route::get('autocomplete', [SearchController::class, 'autocomplete'])->name('autocomplete');
+//AutoComplete
+Route::post('autocomplete', [SearchController::class, 'autocomplete'])->name('autocomplete');
+Route::post('search', [SearchController::class, 'autocomplete'])->name('search');
+//Rating
+Route::post('rating',[HomepageController::class, 'starRating'])->middleware('auth')->name('star.rating');
+//Admin Route
+Route::get('admin-products', [AdminController::class, 'viewAdminProducts'])->middleware('admin');

@@ -5,6 +5,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <title>My Shop</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="csrf-token" content="{{ csrf_token() }}" />
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
         <script src="https://kit.fontawesome.com/fb00eb3bce.js" crossorigin="anonymous"></script> 
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" integrity="sha512-PgQMlq+nqFLV4ylk1gwUOgm6CtIIXkKwaIHp/PAIWHzig/lKZSEGKEysh0TCVbHJXCLN7WetD8TFecIky75ZfQ==" crossorigin="anonymous"/>  
@@ -56,7 +57,8 @@
                     <div class="dropdown w-100 my-lg-0 my-2"> <button class="btn btn-secondary d-flex justify-content-between align-items-center" type="button" id="dropdownMenu" data-bs-toggle="dropdown" aria-expanded="true"> <span class=" w-100 d-flex align-items-center"> 
                     </div>
                     {{-- Search Nav --}}
-                    <form action="" method="POST" class="d-flex align-items-center w-100 h-100 ps-lg-0 ps-sm-3">
+                    <form action="{{route('search')}}" method="POST" class="d-flex align-items-center w-100 h-100 ps-lg-0 ps-sm-3">
+                        @csrf
                         <input name="search_cat" id="search_cat_navbar" class=" ps-md-0 ps-3" type="text" placeholder="search for a product" style="background-color: rgb(194, 194, 194);">
                         <button class="btn btn-primary d-flex align-items-center justify-content-center" type="submit" name="submit_search"><i class="fas fa-search"></i></button>
                     </form>
@@ -73,7 +75,9 @@
     </div>
 </div>
 <div class="row">
-    <div class="offset-md-3 col-md-5 text-center">
-        <div id="s_paragraph" ></div>
+    <div class="offset-md-3 col-md-5 text-center position-absolute">
+        <div id="s_paragraph">
+            
+        </div>
     </div>
 </div>

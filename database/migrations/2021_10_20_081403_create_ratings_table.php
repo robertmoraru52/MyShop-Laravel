@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class UsersTable extends Migration
+class CreateRatingsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,10 @@ class UsersTable extends Migration
      */
     public function up()
     {
-        Schema::create('Users', function (Blueprint $table) {
-            $table->id();
-            $table->string('email');
-            $table->string('password');
-            $table->string('remember_token');
-            $table->boolean('is_admin')->nullable();
+        Schema::create('ratings', function (Blueprint $table) {
+            $table->integer('id_product');
+            $table->integer('stars');
+            $table->string('user_email');
             $table->timestamps();
         });
     }
@@ -30,6 +28,6 @@ class UsersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('Users');
+        Schema::dropIfExists('ratings');
     }
 }
