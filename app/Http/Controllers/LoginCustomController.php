@@ -10,13 +10,15 @@ class LoginCustomController{
         return view('auth.login');
     }  
 
+    /**
+     * Check For Login
+     */
     public function customLogin(Request $request)
     {
         $request->validate([
             'email' => 'required',
             'password' => 'required',
         ]);
-   
         $credentials = $request->only('email', 'password');
         if (Auth::attempt($credentials)) {
                 return redirect('/');

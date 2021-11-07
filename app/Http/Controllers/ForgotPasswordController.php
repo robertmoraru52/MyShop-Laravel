@@ -10,7 +10,9 @@ class ForgotPasswordController extends Controller
         return view('auth.forgot-password');
     }
 
-    //Send email with link to reset.password view
+    /**
+     * Send email with link to reset.password view
+     */
     public function sendEmail (Request $request) {
         $request->validate(['email' => 'required|email']);
         $status = Password::sendResetLink(

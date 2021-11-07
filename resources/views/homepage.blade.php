@@ -1,6 +1,5 @@
 @include('header')
 <!-- products start -->
-<p id="livesearch"></p>
 <div class="container">
     <div class="mt-5 mb-5">
         <div class="row">

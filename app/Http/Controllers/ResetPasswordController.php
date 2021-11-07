@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Auth\User;
+use Illuminate\Support\Facades\Log;
 
 class ResetPasswordController extends Controller
 {
@@ -15,7 +16,9 @@ class ResetPasswordController extends Controller
         return view('auth.reset-password', ['token' => $token]);
     }
 
-    //Changing password in DB after email
+    /**
+     * Reseting Password after Lost Password Email
+     */
     public function resetPassword (Request $request) {
         $request->validate([
             'token' => 'required',
@@ -41,11 +44,16 @@ class ResetPasswordController extends Controller
                     ? redirect()->route('login')->with('status', __($status))
                     : back()->withErrors(['email' => [__($status)]]);
             }
-        catch(\Exception $e){
-                return 'Error Password did not change';
+            catch(\Exception $e){
+              Log::info($e->getMessage());
+      
+              return back()->with('error',$e);
             }
     }
 
+    /**
+     * Change Password From Account Info Page
+     */
     public function changePassword(Request $request)
     {
       if(Auth::Check())

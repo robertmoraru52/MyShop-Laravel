@@ -11,6 +11,9 @@ class ContactController extends Controller
         return view('contact');
     }
 
+    /**
+    *Send Email To Admin Email With Feedback
+    */
     public function sendEmail(Request $request){
         $request->validate([
             'email' => 'required',

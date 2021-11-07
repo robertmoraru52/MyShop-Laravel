@@ -13,12 +13,15 @@ class RegisterCustomController extends Controller
         return view('auth.registration');
     }
       
+    /**
+     * Registration of Users
+     */
     public function customRegistration(Request $request)
     {  
         $request->validate([
             'email' => 'required|email|unique:users',
             'password' => 'min:6|required_with:password_confirmation|same:password_confirmation',
-            'password_confirmation' => 'min:6'
+            'password_confirmation' => 'min:6',
         ]);
         $data = $request->all();
         $user = $this->create($data);
@@ -43,7 +46,7 @@ class RegisterCustomController extends Controller
       catch(\Exception $e){
         Log::info($e->getMessage());
 
-        return 'Error';
+        return back()->with('error',$e);
       }
     }    
 }

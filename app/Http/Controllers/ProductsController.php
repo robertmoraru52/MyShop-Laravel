@@ -2,10 +2,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
+use App\Models\Product;
 
 class ProductsController extends Controller
 {
+    /**
+     * Return view Details with required product searched by id
+     */
     public function viewProductDetails(Request $request)
     {
         $request->validate([
@@ -13,7 +16,7 @@ class ProductsController extends Controller
         ]);
 
         return view('details', [
-            'products' => DB::table('products')->where('id', '=', $request->id)->first(),
+            'products' => Product::where('id', '=', $request->id)->first(),
         ]);
     }
 }

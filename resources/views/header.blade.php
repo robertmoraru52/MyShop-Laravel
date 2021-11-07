@@ -25,14 +25,16 @@
                     @endguest
                     @auth
                     <li class="nav-item"> <a class="nav-link pe-3 me-4 fw-bold" href="account">{{Auth::user()->email;}}</a> </li>
-                   
+                    @if(Auth::user()->isAdministrator())
+                    <li class="nav-item"> <a class="nav-link pe-3 me-4 fw-bold" href="{{route('admin_main')}}">Admin Menu</a> </li>
+                    @endif
                     <li class="nav-item"> <a class="nav-link pe-3 me-4 fw-bold" href="contact">CONTACT</a> </li>
                      <li class="nav-item"> <a class="nav-link pe-3 me-4 fw-bold" href="{{ route('signout') }}">LOG OUT</a> </li>
                     @endauth
                 </ul>
                 <ul class="navbar-nav icons ms-auto mb-2 mb-lg-0">
                     <li class=" nav-item pe-3">
-                        <a href="cart.php" class="fas fa-shopping-bag"> 
+                        <a href="cart" class="fas fa-shopping-bag"> 
                             <span class="num rounded-circle"> 0</span>
                         </a> 
                     </li>
@@ -48,6 +50,13 @@
             <p> <a class="btn btn-primary w-100 d-flex align-items-center justify-content-between" data-bs-toggle="collapse" href="#collapse2" role="button" aria-expanded="false" aria-controls="Toggle Navigation"> <span class="fas fa-bars"><span class="ps-3">All Categories</span></span> <span class="fas fa-chevron-down"></span> </a> </p>
             <div class="collapse" id="collapse2">
                 <ul class="list-unstyled ms-3" id="cat_nav">
+                    @foreach ($category as $categoryList)
+                    <form action="{{route('category.filter')}}" method="POST">
+                        @csrf
+                        <input type="hidden" name="id" value="{{$categoryList->id}}">
+                        <li><button type="submit" name="submit" class='dropdown-item'>{{$categoryList->name}}</button></li>
+                    </form>
+                    @endforeach
                 </ul>
             </div>
         </div>
@@ -59,7 +68,7 @@
                     {{-- Search Nav --}}
                     <form action="{{route('search')}}" method="POST" class="d-flex align-items-center w-100 h-100 ps-lg-0 ps-sm-3">
                         @csrf
-                        <input name="search_cat" id="search_cat_navbar" class=" ps-md-0 ps-3" type="text" placeholder="search for a product" style="background-color: rgb(194, 194, 194);">
+                        <input name="search" id="search_cat_navbar" class=" ps-md-0 ps-3" type="text" placeholder="search for a product" style="background-color: rgb(194, 194, 194);">
                         <button class="btn btn-primary d-flex align-items-center justify-content-center" type="submit" name="submit_search"><i class="fas fa-search"></i></button>
                     </form>
                     {{-- End Search Nav --}}
@@ -75,9 +84,9 @@
     </div>
 </div>
 <div class="row">
-    <div class="offset-md-3 col-md-5 text-center position-absolute">
+    <div class="offset-md-3 col-md-5 text-center">
         <div id="s_paragraph">
-            
+            <ul class="list-unstyled"></ul>
         </div>
     </div>
 </div>
