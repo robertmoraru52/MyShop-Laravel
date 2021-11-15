@@ -6,6 +6,7 @@ use App\Models\Rating;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Product;
 use App\Models\Category;
+use App\Models\Order;
 
 class HomepageController extends Controller
 {
@@ -26,8 +27,8 @@ class HomepageController extends Controller
       $request->validate([
         'id' => 'required',
       ]);
-
       $category = Category::find($request->id);
+      
       return view('homepage',['products' => $category->products()->paginate(6)]);
     }
 
@@ -55,5 +56,16 @@ class HomepageController extends Controller
         ->where('user_email', Auth::user()->email)
         ->update(['stars' => $request->star]);
       }
+
+      return null;
+    }
+
+    /**
+     * Return orderd products page with Order collection for the current user
+     */
+    public function orderView(){
+      $orders = Order::where('user_id', Auth::user()->id)->get();
+
+      return view('order',compact('orders'));
     }
 }

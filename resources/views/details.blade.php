@@ -42,9 +42,10 @@
                             <h5>Choose the quantity:</h5>
                             <p class="card-text"></p>
                     </span>
-                    <form action=" {{route('add.cart')}} " method="POST">
+                    <form action=" {{route('addCart')}} " method="POST">
+                        @csrf
                         <input type="number" class="w-25" name="quantity" value="1" min="1" max="{{$products->stock}}" placeholder="Quantity" required><br><br>
-                        <input type="hidden" name="product_id" value="">
+                        <input type="hidden" name="product_id" value="{{$products->id}}">
                         <button type="submit" name="add-to-cart" class="btn btn-success">Add to cart <i class="fas fa-shopping-cart"></i></button>
                     </form>
                 </div>

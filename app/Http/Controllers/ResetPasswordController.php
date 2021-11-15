@@ -65,12 +65,14 @@ class ResetPasswordController extends Controller
             $user_id = Auth::User()->id;                       
             $obj_user = User::find($user_id);
             $obj_user->password = Hash::make($request_data['password']);
-            $obj_user->save(); 
+            $obj_user->save();
+             
             return back()->withSuccess('Password Changed!');
           }
           else
           {           
             $error = array('current-password' => 'Please enter correct current password');
+
             return back()->withErrors($error['current-password']);   
           }
         }        

@@ -18,7 +18,11 @@ class User extends Authenticatable implements CanResetPassword
         'email','password','remember_token', 'deleted_at', 'is_admin',
     ];
 
+    public function orders(){
+        $this->hasMany(Order::class);
+    }
+
     public function isAdministrator() {
-        return $this->where('is_admin', '1')->exists();
+        return $this->is_admin;
      }
 } 

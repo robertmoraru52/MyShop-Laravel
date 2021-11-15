@@ -13,35 +13,6 @@
         @endif
         </div>
     </div>
-    <div class="row">
-        <div class="col-md-9 d-flex justify-content-center mb-4 ">
-            <form action=" {{route('search_admin_product')}} " method="POST">
-                @csrf
-                <div class="form-inline">
-                    <div class="input-group" >
-                        <input class="form-control" id="search_cat_navbar" type="search" name="search" placeholder="Search" aria-label="Search">
-                        <div class="input-group-append">
-                            <button type="submit" name="submit" class="btn btn-sidebar border-secondary">
-                            <i class="fas fa-search fa-fw"></i>
-                            </button>
-                            @if(session()->has('success'))
-                            <div class="alert alert-danger">
-                                {{ session()->get('success') }}
-                            </div>
-                            @endif
-                        </div>
-                    </div>
-                </div>
-            </form>
-            <div id="s_paragraph">
-                <ul></ul>
-                
-            </div>
-        </div>
-        <div class="col-md-3 d-flex justify-content-center mb-4">
-            <a href="admin-product"><span>Go Back </span><i class="fas fa-sync-alt"></i></a>
-        </div>
-    </div>
     <div class='row'>
         <div class='col-3 offset-2'>
             <h3 class="mb-2">Admin Products Table</h3>
@@ -71,7 +42,8 @@
     <div class='row-fluid'>
         <div class='col-xs-10 col-sm-10 col-xl-10 col-md-10 offset-2'>
             <div class='table-responsive'>
-                <table class='table table-hover table-inverse table-dark'>
+                <table id="example" class="table table-striped table-bordered" style="width:100%">
+                    <thead>
                     <tr>
                         <th>Product ID</th>
                         <th>Name</th>
@@ -80,6 +52,8 @@
                         <th>Category</th>
                         <th>Action Product</th>
                     </tr>
+                </thead>
+                <tbody>
                     @foreach ($products as $productsList)
                         <tr>
                             <td>{{$productsList->id}}</td>
@@ -147,6 +121,7 @@
                             </div>
                         </div>
                         @endforeach
+                    </tbody>
                 </table>
             </div>
         </div>

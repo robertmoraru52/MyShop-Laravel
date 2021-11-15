@@ -1,4 +1,4 @@
-@include('.header')
+@include('header')
 <main class="signup-form">
     <div class="cotainer">
         <div class="row justify-content-center">

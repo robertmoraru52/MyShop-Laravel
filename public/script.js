@@ -1,4 +1,4 @@
-//Search Navbar
+//Search Navbar Autocomplete
 $(document).ready(function(){
     $('#search_cat_navbar').keyup(function(){
         $this = $(this).val();
@@ -23,7 +23,6 @@ $(document).ready(function(){
                     })
                     $("#s_paragraph ul").html(html);
                 }
-                
             }  
         });
     });
@@ -32,65 +31,6 @@ $(document).ready(function(){
                     $("#s_paragraph").fadeOut();
     });
 });
-
-//Search Admin User
-$(document).ready(function(){
-    $('#search_user').keyup(function(){
-        $this = $(this).val();
-        $.ajaxSetup({
-            headers: { 'X-CSRF-Token' : $('meta[name="csrf-token"]').attr('content') }
-        });
-        jQuery.ajax({
-            url: "autocomplete-user-admin",
-            type: 'post',
-            data:{
-                'search':$this
-            },
-            success:function(data){
-                let output = data;
-                let html = '';
-                $.each(output,function(key,value){
-                        html += '<li class="dropdown-item">' + value.email + '</li>'
-                })
-                $("#s_paragraph_user ul").html(html);
-            }  
-        });
-    });
-    $(document).on('click', '#s_paragraph_user li', function(){
-                    $("#search_user").val($(this).text())
-                    $("#s_paragraph_user").fadeOut();
-    });
-});
-
-//Search Admin Category
-$(document).ready(function(){
-    $('#search_category').keyup(function(){
-        $this = $(this).val();
-        $.ajaxSetup({
-            headers: { 'X-CSRF-Token' : $('meta[name="csrf-token"]').attr('content') }
-        });
-        jQuery.ajax({
-            url: "autocomplete-category-admin",
-            type: 'post',
-            data:{
-                'search':$this
-            },
-            success:function(data){
-                let output = data;
-                let html = '';
-                $.each(output,function(key,value){
-                        html += '<li class="dropdown-item">' + value.name + '</li>'
-                })
-                $("#s_paragraph_category ul").html(html);
-            }  
-        });
-    });
-    $(document).on('click', '#s_paragraph_category li', function(){
-                    $("#search_category").val($(this).text())
-                    $("#s_paragraph_category").fadeOut();
-    });
-});
-
 
 //Rating JS
 $('.modal-review__rating-order-wrap > span').click(function() {
@@ -134,3 +74,46 @@ function getComboA(sel) {
         success:setTimeout(location.reload.bind(location), 100)
     });
 }
+
+//Update Cart Items
+$(".update-cart").click(function (e) {
+   e.preventDefault();
+   var ele = $(this);
+   $.ajaxSetup({
+    headers: { 'X-CSRF-Token' : $('meta[name="csrf-token"]').attr('content') }
+});
+    $.ajax({
+       url: 'update-cart',
+       method: "patch",
+       data: { 'id': ele.attr("data-id"), 'quantity': ele.parents("tr").find(".quantity").val()},
+       success: function (response) {
+           window.location.reload();
+       }
+    });
+});
+
+//Remove Cart Items
+$(".remove-from-cart").click(function (e) {
+    e.preventDefault();
+    var ele = $(this);
+    if(confirm("Are you sure")) {
+        $.ajaxSetup({
+            headers: { 'X-CSRF-Token' : $('meta[name="csrf-token"]').attr('content') }
+        });
+        $.ajax({
+            url: 'remove-from-cart',
+            method: "DELETE",
+            data: { 'id': ele.attr("data-id")},
+            success: function (response) {
+                window.location.reload();
+            }
+        });
+    }
+});
+
+//Data Table
+$(document).ready(function() {
+    $('#example').DataTable( {
+        select: true
+    } );
+} );

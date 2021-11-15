@@ -1,44 +1,64 @@
 @include('header')
-<div class="container pb-5 mb-2 mt-5">
-    
-        <div class="cart-item d-md-flex justify-content-between">
-            <span class="remove-item"><a class="text-reset" ><i class="fa fa-times"></i></a></span>
-            <div class="px-3 my-3">
-                <a class="cart-item-product" href="">
-                    <div class="cart-item-product-thumb"><img src="{{asset('css/t-shirt.png')}}" alt="Product"></div>
-                    <div class="cart-item-product-info">
-                        <h4 class="cart-item-product-title"> </h4><span><strong>Type:</strong> Short Sleeve</span><span><strong>Color:</strong> Black</span>
-                    </div>
-                </a>
-            </div>
-            <div class="px-3 my-3 text-center">
-                <div class="cart-item-label">Quantity</div>
-                <div class="count-input">
-                    <select class="form-control" data-id="" id="quantity-cart" onChange="">
-                        <option selected></option>
-                    </select>
-                </div>
-            </div>
-            <div class="px-3 my-3 text-center">
-                <div class="cart-item-label">Price</div><span class="text-xl font-weight-medium">
-                    
-                </span>
-            </div>
-        </div>
-        <div class="row">
-            <div class="offset-md-10 col-md-2">
-                <div class="py-2"><span class="d-inline-block align-middle text-sm text-muted font-weight-medium text-uppercase mr-2">Subtotal:</span><span class="d-inline-block align-middle text-xl font-weight-medium">
-             
-                        Lei</span>
-                </div>
-            </div>    
-        </div>
-    <hr class="my-2">
-    <div class="row pt-3 pb-5 mb-2">
-        <div class="col-sm-6 mb-3 text-center">
-            <a class="btn btn-style-1 btn-secondary btn-block" href="/"><i class="fe-icon-refresh-ccw"></i>Continue Shopping</a>
-        </div>
-        <div class="col-sm-6 mb-3 text-center"><a class="btn btn-style-1 btn-primary btn-block" href="checkout.php"><i class="fe-icon-credit-card"></i>Checkout</a></div>
-    </div>
+@if(session()->has('success'))
+<div class="alert alert-success">
+    {{ session()->get('success') }}
 </div>
+@endif
+@if(session()->has('error'))
+<div class="alert alert-danger">
+    {{ session()->get('error') }}
+</div>
+@endif
+<table id="cart" class="table table-hover table-condensed">
+    <thead>
+    <tr>
+        <th style="width:50%">Product</th>
+        <th style="width:10%">Price</th>
+        <th style="width:8%">Quantity</th>
+        <th style="width:22%" class="text-center">Subtotal</th>
+        <th style="width:10%"></th>
+    </tr>
+    </thead>
+    <tbody>
+    <?php $total = 0 ?>
+    @if(session('cart'))
+        @foreach(session('cart') as $id => $details)
+            <?php $total += $details['price'] * $details['quantity'] ?>
+            <tr>
+                <td data-th="Product">
+                    <div class="row">
+                    <div class="col-sm-3 hidden-xs"><img src="{{asset('css/t-shirt.png')}}" width="100" height="100" class="img-responsive"/></div>
+                        <div class="col-sm-9">
+                            <h4 class="nomargin">{{ $details['name'] }}</h4>
+                        </div>
+                    </div>
+                </td>
+                <td data-th="Price">{{ $details['price'] }} Lei</td>
+                <td data-th="Quantity">
+                    <input type="number" value="{{ $details['quantity'] }}" class="form-control quantity" />
+                </td>
+                <td data-th="Subtotal" class="text-center">{{ $details['price'] * $details['quantity'] }} Lei</td>
+                <td class="actions" data-th="">
+                    <button class="btn btn-info btn-sm update-cart" data-id="{{ $id }}"><i class="fa fa-refresh"></i></button>
+                    <button class="btn btn-danger btn-sm remove-from-cart" data-id="{{ $id }}"><i class="fa fa-trash-o"></i></button>
+                </td>
+            </tr>
+        @endforeach
+    @endif
+    </tbody>
+   
+    <tr>
+        <td><a href="{{ url('/') }}" class="btn btn-warning"><i class="fa fa-angle-left"></i> Continue Shopping</a></td>
+        <td colspan="2" class="hidden-xs"></td>
+        <td class="hidden-xs text-center"><strong>Total {{ $total }} Lei</strong></td>
+        <td> 
+            @if(session('cart') != null)
+                <div class="col-sm-6 text-center">
+                    <a href="{{route('oder.details.form')}}" class="btn btn-success btn-block d-inline-flex">Checkout</a>
+                </div>
+            @endif
+        </td>
+    </tr>
+    </tfoot>
+</table>
 @include('footer')

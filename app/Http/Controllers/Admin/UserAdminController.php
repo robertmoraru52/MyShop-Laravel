@@ -10,27 +10,26 @@ use Illuminate\Support\Facades\Hash;
 
 class UserAdminController extends Controller
 {
-    public function __construct(Request $request, User $user)
-    {   
-        $this->request = $request;
-        $this->user = $user;
-    }
-
+     /**
+     * Return Admin users page with User collection
+     */
     public function viewAdminUser(){
-        return view('admin.user_admin')->with('user', $this->user->paginate(5));
+        $user = User::paginate(5);
+
+        return view('admin.user_admin', compact('user'));
     }
 
     /**
      * Soft Deleting Products Function
      */
-    public function deleteUser(){
+    public function deleteUser(Request $request){
         try{
-        $this->user->where('id', '=', $this->request->user_id)->delete();
+            User::where('id', '=', $request->user_id)->delete();
         }
         catch(\Exception $e){
             Log::info($e->getMessage());
     
-            return back()->with('error',$e);
+            return back()->with('error', 'There was an error');
           }
 
         return redirect('admin-user');
@@ -39,15 +38,15 @@ class UserAdminController extends Controller
     /**
      * Add users to DB from Admin Product Table
      */
-    public function addUser(){
-        $this->request->validate([
+    public function addUser(Request $request){
+        $request->validate([
             'email' => 'required|email|unique:Users',
             'password' => 'min:6|required_with:password_confirmation|same:password_confirmation',
             'password_confirmation' => 'min:6'
         ]);
 
         try{
-            $data = $this->request->all();
+            $data = $request->all();
             $dataUser = [
                 'email' => $data['email'],
                 'password' => Hash::make($data['password']),
@@ -60,42 +59,43 @@ class UserAdminController extends Controller
         catch(\Exception $e){
             Log::info($e->getMessage());
     
-            return back()->with('error',$e);
+            return back()->with('error', 'There was an error');
         }
     }
 
-    public function editUser(){
-        $this->request->validate([
+    /**
+     * Edit user from Admin Users
+     */
+    public function editUser(Request $request){
+        $request->validate([
             'email' => 'required',
             'password' => 'min:6|required_with:password_confirmation|same:password_confirmation',
             'password_confirmation' => 'min:6'
         ]);
         try{
-            $data = $this->request->all();
-            $dataUser = [
-                'email' => $data['email'],
-                'password' => Hash::make($data['password']),
-                'is_admin' => $data['is_admin'],
-            ];
-            $this->user->where('id', '=', $data['user_id'])->update($dataUser);
+            User::where('id', '=', $request->user_id)->update([
+                'email' => $request->email,
+                'password' => Hash::make($request->password),
+                'is_admin' => $request->is_admin,
+            ]);
 
             return redirect('admin-user');
         }
         catch(\Exception $e){
             Log::info($e->getMessage());
     
-            return back()->with('error',$e);
+            return back()->with('error', 'There was an error');
         }
     }
 
     //Search Admin User Table
-    public function searchAdminUser(){
-        $this->request->validate([
+    public function searchAdminUser(Request $request){
+        $request->validate([
             'search' => 'required|min:3',
         ]);
         try{
             $data = User::select()
-            ->where("email","LIKE","%{$this->request->search}%")
+            ->where("email","LIKE","%{$request->search}%")
             ->paginate(5);
     
             return view('admin.user_admin',['user' => $data]);
@@ -103,7 +103,7 @@ class UserAdminController extends Controller
         catch(\Exception $e){
             Log::info($e->getMessage());
     
-            return back()->with('error',$e);
+            return back()->with('error', 'There was an error');
           }
 
     }

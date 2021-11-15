@@ -13,8 +13,6 @@
   <link rel="stylesheet" href="{{asset('/plugins/fontawesome-free/css/all.min.css')}}">
   <!-- Ionicons -->
   <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-  <!-- Tempusdominus Bootstrap 4 -->
-  <link rel="stylesheet" href="{{asset('/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css')}}">
   <!-- iCheck -->
   <link rel="stylesheet" href="{{asset('/plugins/icheck-bootstrap/icheck-bootstrap.min.css')}}">
   <!-- JQVMap -->
@@ -27,6 +25,17 @@
   <link rel="stylesheet" href="{{asset('/plugins/daterangepicker/daterangepicker.css')}}">
   <!-- summernote -->
   <link rel="stylesheet" href="{{asset('/plugins/summernote/summernote-bs4.min.css')}}">
+  <!-- data table -->
+  <script src="https://code.jquery.com/jquery-3.5.1.js" crossorigin="anonymous"></script> 
+  <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js" crossorigin="anonymous"></script> 
+  <script src="https://cdn.datatables.net/1.11.3/js/dataTables.bootstrap.min.js" crossorigin="anonymous"></script> 
+  <script src="https://cdn.datatables.net/select/1.3.3/js/dataTables.select.min.js" crossorigin="anonymous"></script> 
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"  crossorigin="anonymous"/>  
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/dataTables.bootstrap.min.css"  crossorigin="anonymous"/>  
+  <link rel="stylesheet" href="https://cdn.datatables.net/select/1.3.3/css/select.bootstrap.min.css"  crossorigin="anonymous"/>  
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <!-- data table end -->
+
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
@@ -462,6 +471,12 @@
                 <a href=" {{route('admin_user')}} " class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Users Table</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{route('admin_order')}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Order Table</p>
                 </a>
               </li>
             </ul>

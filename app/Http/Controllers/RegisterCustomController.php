@@ -33,6 +33,9 @@ class RegisterCustomController extends Controller
         }
     }
 
+    /**
+     * Insert data in User table
+     */
     public function create(array $data)
     {
       try{

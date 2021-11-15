@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
@@ -10,15 +9,9 @@ use Illuminate\Support\Facades\Log;
 
 class CategoryAdminController extends Controller
 {
-    public function __construct(Category $category,Request $request)
-    {
-        $this->category = $category;
-        $this->request = $request;
-        $this->product = Product::all();
-
-    }
-
-
+    /**
+     * Returns Admin category page with 2 collections
+     */
     public function viewAdminCategory(){
         $categories=Category::all(); 
         $product = Product::all();
@@ -26,18 +19,18 @@ class CategoryAdminController extends Controller
         return view('admin.category_admin',compact('categories','product'));
     }
 
+    /**
+     * Add category to Admin category page
+     */
     public function addCategory(Request $request){
         $request->validate([
             'name' => 'required',
             'product' => 'required',
         ]);
         try{         
-
             $categories=Category::all(); 
             $data = $request->all();
-
             $categories = Category::create($data);
-
             $categories->products()->sync($request->product);
 
             return redirect('admin-category');
@@ -45,10 +38,13 @@ class CategoryAdminController extends Controller
         catch(\Exception $e){
             Log::info($e->getMessage());
     
-            return back()->with('error',$e);
+            return back()->with('error','There was an error');
         }
     }   
 
+    /**
+     * Delete category from Admin category page
+     */
     public function deleteCategory(Request $request){
         try{
             $categories=Category::find($request->cat_id); 
@@ -60,21 +56,23 @@ class CategoryAdminController extends Controller
         catch(\Exception $e){
             Log::info($e->getMessage());
     
-            return back()->with('error',$e);
+            return back()->with('error','There was an error');
           }
 
     }
 
-    public function editCategory(){
-        $this->request->validate([
+     /**
+     * Edit category from Admin category page
+     */
+    public function editCategory(Request $request){
+        $request->validate([
             'name' => 'required',
             'category_id' => 'required',
         ]);
-
         try{
-            $this->category::where('id', '=', $this->request->category_id)
+            Category::where('id', '=', $request->category_id)
                 ->update([
-                    'name' => $this->request->name,
+                    'name' => $request->name,
             ]);
             
             return redirect('admin-category');
@@ -82,28 +80,8 @@ class CategoryAdminController extends Controller
         catch(\Exception $e){
             Log::info($e->getMessage());
     
-            return back()->with('error',$e);
+            return back()->with('error','There was an error');
           }
 
     }
-
-    public function searchAdminCategory(){
-        $this->request->validate([
-            'search' => 'required|min:3',
-        ]);
-        try{
-            $data = Category::select()
-            ->where("name","LIKE","%{$this->request->search}%")
-            ->get();
-    
-            return view('admin.category_admin',['categories' => $data],['product' => $this->product]);
-        }
-        catch(\Exception $e){
-            Log::info($e->getMessage());
-    
-            return back()->with('error',$e);
-          }
-
-    }
-
 }

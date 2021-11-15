@@ -1,5 +1,10 @@
 @include('header')
 <!-- products start -->
+@if(session()->has('success'))
+<div class="alert alert-success">
+    {{ session()->get('success') }}
+</div>
+@endif
 <div class="container">
     <div class="mt-5 mb-5">
         <div class="row">

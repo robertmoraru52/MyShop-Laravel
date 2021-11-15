@@ -6,6 +6,9 @@ use Illuminate\Support\Facades\Auth;
 
 class SignOutController extends Controller
 {    
+    /*
+    *Sings out current user
+    */
     public function signOut() {
         Session::flush();
         Auth::logout();

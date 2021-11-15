@@ -13,29 +13,6 @@
         @endif
         </div>
     </div>
-    <div class="row">
-        <div class="col-md-9 d-flex justify-content-center mb-4 ">
-            <form action=" {{route('search_admin_user')}} " method="POST">
-                @csrf
-                <div class="form-inline">
-                    <div class="input-group" >
-                        <input class="form-control" id="search_user" type="search" name="search" placeholder="Search" aria-label="Search">
-                        <div class="input-group-append">
-                            <button type="submit" name="submit" class="btn btn-sidebar border-secondary">
-                            <i class="fas fa-search fa-fw"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </form>
-            <div id="s_paragraph_user">
-                <ul></ul>
-            </div>
-        </div>
-        <div class="col-md-3 d-flex justify-content-center mb-4">
-            <a href="admin-user"><span>Go Back </span><i class="fas fa-sync-alt"></i></a>
-        </div>
-    </div>
     <div class='row'>
         <div class='col-3 offset-2'>
             <h3 class="mb-2">Admin Users Table</h3>
@@ -63,8 +40,9 @@
     <div class='row-fluid'>
         <div class='col-xs-10 col-sm-10 col-xl-10 col-md-10 offset-2'>
             <div class='table-responsive'>
-                <table class='table table-hover table-inverse table-dark'>
-                    <tr>
+                <table id="example" class="table table-striped table-bordered" style="width:100%">
+                    <thead>                    
+                        <tr>
                         <th>Product ID</th>
                         <th>Email</th>
                         <th>Admin function</th>
@@ -72,6 +50,8 @@
                         <th>updated at</th>
                         <th>Action Product</th>
                     </tr>
+                </thead>
+                <tbody>
                     @foreach ($user as $userList)
                         <tr>
                             <td>{{$userList->id}}</td>
@@ -110,7 +90,7 @@
                                     <span aria-hidden="true">&times;</span>
                                   </button>
                                 </div>
-                                <form action="edit-user" method="POST" id="funct">
+                                <form action=" {{route('edit_user', [$userList->id])}} " method="POST" id="funct">
                                     @csrf
                                     <div class="modal-body">
                                         <div class="col-md-6">
@@ -120,7 +100,6 @@
                                             <input type="password" class="mx-1" name="password" placeholder="password" required>
                                             <label for="password_confirmation">Confirm Password</label>
                                             <input type="password" class="mx-1" name="password_confirmation" required>
-                                            <input type="hidden" value=" {{$userList->id}} " name="user_id"><br>
                                             <label for="admin">Admin Function</label>
                                             <input type="checkbox" name="is_admin" value="1">
                                         </div>
@@ -134,6 +113,7 @@
                             </div>
                         </div>
                     @endforeach
+                </tbody>
                 </table>
             </div>
         </div>

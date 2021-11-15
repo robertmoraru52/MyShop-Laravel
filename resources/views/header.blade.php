@@ -25,7 +25,7 @@
                     @endguest
                     @auth
                     <li class="nav-item"> <a class="nav-link pe-3 me-4 fw-bold" href="account">{{Auth::user()->email;}}</a> </li>
-                    @if(Auth::user()->isAdministrator())
+                    @if(Auth::user()->isAdministrator() == 1)
                     <li class="nav-item"> <a class="nav-link pe-3 me-4 fw-bold" href="{{route('admin_main')}}">Admin Menu</a> </li>
                     @endif
                     <li class="nav-item"> <a class="nav-link pe-3 me-4 fw-bold" href="contact">CONTACT</a> </li>
@@ -35,11 +35,15 @@
                 <ul class="navbar-nav icons ms-auto mb-2 mb-lg-0">
                     <li class=" nav-item pe-3">
                         <a href="cart" class="fas fa-shopping-bag"> 
-                            <span class="num rounded-circle"> 0</span>
+                            <span class="num rounded-circle"> {{ count((array) session('cart'))}} </span>
                         </a> 
                     </li>
-                    <li class=" nav-item"> <span class="">items:</span> <span class="fw-bold">0 Lei</span> </li>
-                    <li class=" nav-item ms-2 pe-3"> <a href="#" class="fas fa-shipping-fast"> 
+                    <?php $total = 0 ?>
+                    @foreach((array) session('cart') as $id => $details)
+                        <?php $total += $details['price'] * $details['quantity'] ?>
+                    @endforeach
+                    <li class=" nav-item"> <span class="">items:</span> <span class="fw-bold">{{ $total }} Lei</span> </li>
+                    <li class=" nav-item ms-2 pe-3"> <a href="order" class="fas fa-shipping-fast"> 
                     </a> </li>
                 </ul>
             </div>
@@ -50,6 +54,7 @@
             <p> <a class="btn btn-primary w-100 d-flex align-items-center justify-content-between" data-bs-toggle="collapse" href="#collapse2" role="button" aria-expanded="false" aria-controls="Toggle Navigation"> <span class="fas fa-bars"><span class="ps-3">All Categories</span></span> <span class="fas fa-chevron-down"></span> </a> </p>
             <div class="collapse" id="collapse2">
                 <ul class="list-unstyled ms-3" id="cat_nav">
+                   @isset($category)
                     @foreach ($category as $categoryList)
                     <form action="{{route('category.filter')}}" method="POST">
                         @csrf
@@ -57,6 +62,7 @@
                         <li><button type="submit" name="submit" class='dropdown-item'>{{$categoryList->name}}</button></li>
                     </form>
                     @endforeach
+                   @endisset
                 </ul>
             </div>
         </div>

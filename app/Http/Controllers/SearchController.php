@@ -6,6 +6,7 @@ use App\Models\Product;
 use App\Models\User;
 use Illuminate\Support\Facades\Log;
 use App\Models\Category;
+use App\Models\Order;
 
 class SearchController extends Controller
 {
@@ -31,33 +32,7 @@ class SearchController extends Controller
     
             return back()->with('error',$e);
         }
-
     }
-
-    /**
-     * Autofill Search Admin User
-     */
-    public function autocompleteAdminUser()
-    {
-        $data = User::select("email")
-                ->where("email","LIKE","%{$this->request->search}%")
-                ->get();
-
-        return response()->json($data);
-    }
-
-    /**
-     * Autofill Search Admin Category
-     */
-    public function autocompleteAdminCategory()
-    {
-        $data = Category::select("name")
-                ->where("name","LIKE","%{$this->request->search}%")
-                ->get();
-
-        return response()->json($data);
-    }
-
 
     /**
      * Submit Search Navbar 
