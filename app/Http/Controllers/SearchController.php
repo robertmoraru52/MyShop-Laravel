@@ -39,12 +39,12 @@ class SearchController extends Controller
      */
     public function searchNavBar(){
         $this->request->validate([
-            'search' => 'required|min:3'
-        ]);
+            'suggestion' => 'required|min:3'
+        ]);            
         $data = Product::select()
-        ->where("name","LIKE","%{$this->request->search}%")
+        ->where("name","LIKE","%{$this->request->suggestion}%")
         ->paginate(6);
 
-        return view('homepage',['products' => $data]);
+        return response()->json($data);
     }
 }

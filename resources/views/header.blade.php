@@ -11,13 +11,13 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" integrity="sha512-PgQMlq+nqFLV4ylk1gwUOgm6CtIIXkKwaIHp/PAIWHzig/lKZSEGKEysh0TCVbHJXCLN7WetD8TFecIky75ZfQ==" crossorigin="anonymous"/>  
         <link rel="stylesheet" href="{{asset('css/style.css')}}">
     </head>
-    <body>
-    <div class="container">
+    <body>            
+    <div class="container" id="app">
     <nav class="navbar navbar-expand-lg navbar-light ">
-        <div class="container-fluid pe-lg-2 p-0"> <a class="navbar-brand fw-bold fs-3" href="/">My Shop</a> <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"> <span class="navbar-toggler-icon"></span> </button>
+        <div class="container-fluid pe-lg-2 p-0"> <a class="navbar-brand fw-bold fs-3" href="{{route('homepage')}}">My Shop</a> <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"> <span class="navbar-toggler-icon"></span> </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                    <li class="nav-item"> <a class="nav-link pe-3 me-4 fw-bold active" aria-current="page" href="/">HOME</a></li>
+                    <li class="nav-item"> <a class="nav-link pe-3 me-4 fw-bold active" aria-current="page" href=" {{route('homepage')}} ">HOME</a></li>
                     @guest
                     <li class="nav-item"> <a class="nav-link pe-3 me-4 fw-bold" href="registration">SIGN UP</a> </li>
                     <li class="nav-item"> <a class="nav-link pe-3 me-4 fw-bold" href="login">SIGN IN</a> </li>
@@ -37,14 +37,10 @@
                         <a href="cart" class="fas fa-shopping-bag"> 
                             <span class="num rounded-circle"> {{ count((array) session('cart'))}} </span>
                         </a> 
-                    </li>
-                    <?php $total = 0 ?>
-                    @foreach((array) session('cart') as $id => $details)
-                        <?php $total += $details['price'] * $details['quantity'] ?>
-                    @endforeach
-                    <li class=" nav-item"> <span class="">items:</span> <span class="fw-bold">{{ $total }} Lei</span> </li>
-                    <li class=" nav-item ms-2 pe-3"> <a href="order" class="fas fa-shipping-fast"> 
-                    </a> </li>
+                    </li> 
+                    <li class=" nav-item"><span class="fw-bold"><total-component></total-component></span></li>
+                    <li class=" nav-item ms-2 pe-3"><a href="order" class="fas fa-shipping-fast"> 
+                    </a></li>
                 </ul>
             </div>
         </div>
@@ -68,16 +64,10 @@
         </div>
         <div class="col-xl-9 col-md-9 col-lg-9 col-sm-12 ">
             <div class="d-lg-flex">
-                <div class="d-lg-flex align-items-center border ms-5">
+                <div class="d-lg-flex align-items-center border ms-5" id="search_cat_navbar">
                     <div class="dropdown w-100 my-lg-0 my-2"> <button class="btn btn-secondary d-flex justify-content-between align-items-center" type="button" id="dropdownMenu" data-bs-toggle="dropdown" aria-expanded="true"> <span class=" w-100 d-flex align-items-center"> 
                     </div>
-                    {{-- Search Nav --}}
-                    <form action="{{route('search')}}" method="POST" class="d-flex align-items-center w-100 h-100 ps-lg-0 ps-sm-3">
-                        @csrf
-                        <input name="search" id="search_cat_navbar" class=" ps-md-0 ps-3" type="text" placeholder="search for a product" style="background-color: rgb(194, 194, 194);">
-                        <button class="btn btn-primary d-flex align-items-center justify-content-center" type="submit" name="submit_search"><i class="fas fa-search"></i></button>
-                    </form>
-                    {{-- End Search Nav --}}
+                    <autocomplete-component></autocomplete-component>
                 </div>
                 <div class="d-flex align-items-center ms-lg-auto mt-lg-0 mt-3 pe-2"> <span class="me-2 fas fa-phone bg-light rounded-circle" id="phone"></span>
                     <div class="d-flex flex-column ps-2">
@@ -88,7 +78,6 @@
             </div>
         </div>
     </div>
-</div>
 <div class="row">
     <div class="offset-md-3 col-md-5 text-center">
         <div id="s_paragraph">

@@ -14,15 +14,25 @@ class HomepageController extends Controller
   *Return Homepage with Products From DB
   */
     public function homepage(){
-      return view('homepage', [
-        'products' => Product::leftJoin('ratings', function($join)
+     $data = Product::leftJoin('ratings', function($join)
         {
             $join->on('ratings.id_product', '=', 'products.id');
         })
-        ->paginate(6),
-      ]);
+        ->paginate(6);
+
+        return response()->json($data);
     }
 
+    public function homepageView(){
+      return view('homepage');
+    }
+
+    /**
+     * Filters homepage collection by category
+     */
+    /**
+     * to do adapt this function to vue component
+     */
     public function categoryFilter(Request $request){
       $request->validate([
         'id' => 'required',
@@ -57,7 +67,13 @@ class HomepageController extends Controller
         ->update(['stars' => $request->star]);
       }
 
-      return null;
+      $data = Product::leftJoin('ratings', function($join)
+        {
+            $join->on('ratings.id_product', '=', 'products.id');
+        })
+        ->paginate(6);
+
+        return response()->json($data);
     }
 
     /**

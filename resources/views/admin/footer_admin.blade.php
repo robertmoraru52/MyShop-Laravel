@@ -45,8 +45,16 @@
 <!-- AdminLTE for demo purposes -->
 <script src="dist/js/demo.js"></script>
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+<!-- data table -->
+<script src="https://code.jquery.com/jquery-3.5.1.js" crossorigin="anonymous"></script> 
+<script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js" crossorigin="anonymous"></script> 
+<script src="https://cdn.datatables.net/1.11.3/js/dataTables.bootstrap.min.js" crossorigin="anonymous"></script> 
+<script src="https://cdn.datatables.net/select/1.3.3/js/dataTables.select.min.js" crossorigin="anonymous"></script> 
+<!-- data table end-->
 <script src="dist/js/pages/dashboard.js"></script>
-<script src="{{asset('script.js')}}"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios@0.12.0/dist/axios.min.js"></script>
+<script src="{{ asset('script.js')}}"></script>
+<script src="js/app.js"></script>
 
 </body>
 </html>

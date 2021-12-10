@@ -1,5 +1,5 @@
 @include('header')
-<span id="mini-header" class="my-5">
+<span id="mini-header" class="my-2">
     <h1>{{$products->name}}</h1>
 </span>
 <div class="container">

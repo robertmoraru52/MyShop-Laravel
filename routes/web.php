@@ -16,6 +16,7 @@ use App\Http\Controllers\Admin\CategoryAdminController;
 use App\Http\Controllers\Admin\OrderAdminController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\ImageUploadController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,8 +27,15 @@ use App\Http\Controllers\CheckoutController;
 /**
  * Homepage Route
  */
-Route::get('/', [HomepageController::class, 'homepage'])->name('homepage');
+Route::get('homepage-products', [HomepageController::class, 'homepage']);
+Route::get('homepage', [HomepageController::class, 'homepageView'])->name('homepage');
 Route::get('order', [HomepageController::class, 'orderView'])->name('order.view');
+//test
+// Route::get('test', [HomepageController::class, 'testView']);
+/**
+ * Collection Routes
+ */
+Route::get('cart-collection', [CartController::class, 'cartCollection']);
 /**
  * Category filter
  */
@@ -40,7 +48,7 @@ Route::post('contact',[ContactController::class, 'sendEmail'])->name('contact.se
 /**
  * Details product route
  */
-Route::post('details',[ProductsController::class, 'viewProductDetails'])->name('details.product');
+Route::get('details/{id}',[ProductsController::class, 'viewProductDetails'])->name('details.product');
 /**
  * Search Navbar Route
  */
@@ -73,6 +81,7 @@ Route::middleware('auth')->group(function () {
     Route::post('checkout-buy-now',[CheckoutController::class,'checkoutBuyNow'])->name('checkout_buy_now');
     //Account details Route
     Route::get('account', [HomepageController::class, 'accountView']);
+    Route::post('imageUpload', [ImageUploadController::class, 'imageUploadPost']);
     //Rating route
     Route::post('rating',[HomepageController::class, 'starRating'])->name('star.rating');
    //Lougout Route
@@ -82,8 +91,8 @@ Route::middleware('auth')->group(function () {
     //Cart routes
     Route::get('cart', [CartController::class, 'viewCart'])->name('view.cart');
     Route::post('add-cart', [CartController::class, 'addToCart'])->name('addCart');
-    Route::patch('update-cart', [CartController::class, 'update']);
-    Route::delete('remove-from-cart', [CartController::class, 'remove']);
+    Route::post('update-cart', [CartController::class, 'update']);
+    Route::post('remove-from-cart', [CartController::class, 'remove']);
 });
 /**
  * Admin Routes
@@ -119,4 +128,3 @@ Route::middleware('admin')->group(function () {
     //DataTable
     Route::get('admin-table', [OrderAdminController::class, 'viewAdminTable'])->name('admin_table');
 });
-

@@ -1,13 +1,28 @@
 @include('header')
 <div class="container rounded bg-white mt-5 mb-5">
     <div class="row">
-        <div class="col-md-3 border-right">
+        <div class="col-md-4 border-right">
             <div class="d-flex flex-column align-items-center text-center p-3 py-5">
-                <img class="rounded-circle mt-5" width="150px" src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg">
+                @if (Auth::user()->image == null) 
+                    <img class="rounded-circle mt-5" width="150px" src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg" alt="" title="">
+                @else
+                    <img class="rounded-circle mt-5" width="150px" src="{{asset('storage/images/'.Auth::user()->image)}}" alt="" title="">
+                @endif
             <span class="text-black-50">{{Auth::user()->email}}</span>
+            <form action="imageUpload" method="POST" enctype="multipart/form-data">
+                @csrf
+                <div class="row">
+                    <div class="col-md-12">
+                        <input type="file" name="image" class="form-control">
+                    </div>
+                    <div class="col-md-12">
+                        <button type="submit" class="btn btn-success">Upload</button>
+                    </div>
+                </div>
+            </form>
             </div>
         </div>
-        <div class="col-md-5 border-right">
+        <div class="col-md-4 border-right">
             <div class="p-3 py-5">
                 <div class="d-flex justify-content-between align-items-center mb-3">
                     <h4 class="text-right">Profile Settings</h4>

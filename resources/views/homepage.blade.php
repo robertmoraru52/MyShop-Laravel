@@ -31,45 +31,12 @@
         </div>
         <div class="row">
             <div class="col-lg-12">
-                <div class="row">
-                    @foreach ($products as $productList)
-                        <div class="col-lg-4 col-md-4 col-sm-4 col-xl-4 text-center my-2">
-                            <div class="card border-0 bg-dark h-100">
-                                <img src="{{asset('css/t-shirt.png')}}" class="img-fluid" alt="t-shirt">
-                                <div class="card-body">
-                                    <span style="color: white">
-                                    <h5 class="card-title">{{$productList->name}}</h5>
-                                    </span>
-                                    <span style="color: white">
-                                        <p class="card-text">{{$productList->name}}</p>
-                                    </span>
-                                    <div class="modal-review__rating-order-wrap ms-5" >
-                                        <span data-rating-value="1" data-value="{{ $productList->id }}"></span>
-                                        <span data-rating-value="2" data-value="{{ $productList->id }}"></span>
-                                        <span data-rating-value="3" data-value="{{ $productList->id }}"></span>
-                                        <span data-rating-value="4" data-value="{{ $productList->id }}"></span>
-                                        <span data-rating-value="5" data-value="{{ $productList->id }}"></span>
-                                    </div>
-                                    <br><br>
-                                <p class="text-white">Rating: {{ $productList->stars }}/5</p>
-                                    <br><br>
-                                    <p class="text-white" id="ratings"></p>
-                                    <span style="color: rgb(240, 43, 48);">
-                                        <h6>{{$productList->price}} Lei</h6>
-                                    </span>
-                                </div>
-                            <form action="{{route('details.product')}}" method="POST">
-                                @csrf
-                                <input type="hidden" name="id" value="{{$productList->id}}">
-                                <button type="submit" class='btn btn-success mb-3'>See More Details</button>
-                            </form>
-                            </div>
-                        </div>      
-                    @endforeach
+                <div class="row" id="productsHomepage">
+                    <products-homepage-component></products-homepage-component>
                 </div>
                 <div class="row">
                     <div class="offset-md-5 col-md-7">
-                        <span class="text-center">{{ $products->links() }}</span>
+                        <span class="text-center"></span>
                     </div>
                 </div>
             </div>

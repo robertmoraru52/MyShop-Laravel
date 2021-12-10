@@ -1,5 +1,5 @@
 @include('./admin/header_admin')
-<div class='container mt-5'>
+<div class='container mt-5' id="app">
     <div class="row">
         <div class="offset-md-4 col-md-6">
             @if ($errors->any())
@@ -56,22 +56,13 @@
                 <tbody>
                     @foreach ($products as $productsList)
                         <tr>
-                            <td>{{$productsList->id}}</td>
-                            <td>{{$productsList->name}}</td>
-                            <td>{{$productsList->stock}}</td>
-                            <td>{{$productsList->price}}</td>
-                        <td>
-                            <div class='form-group'>
-                                <select multiple="multiple" size="3" style="height: 100%;" class='form-control-sm text-white bg-dark' id="select-cat" onChange="getComboA(this)">
-                                    @foreach ($productsList->categories as $category)
-                                        <option selected value="{{$productsList->id}}">{{$category->name}}</option>
-                                    @endforeach
-                                    @foreach ($cat as $cats)
-                                        <option data-index-number="{{$cats->id}}" value="{{$productsList->id}}">{{$cats->name}}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </td>
+                            <td>{{$productsList['id']}}</td>
+                            <td>{{$productsList['name']}}</td>
+                            <td>{{$productsList['stock']}}</td>
+                            <td>{{$productsList['price']}}</td>
+                            <td >
+                                <category-select-component :id="{{$productsList['id']}}" :products="{{json_encode($productsList) }}" :categories="{{json_encode($cat)}}"></category-select-component>                                
+                            </td>
                         <td>
                             <div class="dropdown">
                                 <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -80,15 +71,15 @@
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                     <form action="admin-product-delete" method="POST">
                                         @csrf
-                                    <input type="hidden" value="{{$productsList->id}}" name="product_id">    
+                                    <input type="hidden" value="{{$productsList['id']}}" name="product_id">    
                                   <button class="dropdown-item"  onclick="return confirm('Are you sure you want to delete this item?');" type="submit" >Delete <i class="fa fa-times"></i></button>
                                 </form>
-                                  <button class="dropdown-item" data-toggle="modal" data-target="#modal{{$productsList->id}}">Edit <i class="fas fa-edit"></i></button>
+                                  <button class="dropdown-item" data-toggle="modal" data-target="#modal{{$productsList['id']}}">Edit <i class="fas fa-edit"></i></button>
                                 </div>
                               </div>
                         </td>
                         </tr>
-                        <div class="modal fade" id="modal{{$productsList->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal fade" id="modal{{$productsList['id']}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog" role="document">
                               <div class="modal-content">
                                 <div class="modal-header">
@@ -102,14 +93,14 @@
                                     <div class="modal-body">
                                         <div class="col-md-6">
                                             <label for="name">Product's Name</label>
-                                            <input type="text" name="name" value=" {{$productsList->name}} " placeholder="enter the name">
+                                            <input type="text" name="name" value=" {{$productsList['name']}} " placeholder="enter the name">
                                             <label for="stock">Product's Stock</label>
-                                            <input type="text" value=" {{$productsList->stock}} "  name="stock" placeholder="enter the stock">
+                                            <input type="text" value=" {{$productsList['stock']}} "  name="stock" placeholder="enter the stock">
                                             <label for="price">Product's Price</label>
-                                            <input type="text" value=" {{$productsList->price}} "  name="price" placeholder="enter the price">
+                                            <input type="text" value=" {{$productsList['price']}} "  name="price" placeholder="enter the price">
                                             <label for="description">Product's Description</label>
-                                            <textarea type="text" name="description" placeholder="enter the description" rows="5">{{$productsList->description}}</textarea>
-                                            <input type="hidden" name="product_id" value=" {{$productsList->id}} ">
+                                            <textarea type="text" name="description" placeholder="enter the description" rows="5">{{$productsList['description']}}</textarea>
+                                            <input type="hidden" name="product_id" value=" {{$productsList['id']}} ">
                                         </div>
                                     </div>
                                     <div class="modal-footer">
@@ -128,7 +119,7 @@
     </div>
     <div class="row">
         <div class="offset-md-5 col-md-7">
-            <span class="text-center">{{ $products->links() }}</span>
+            {{-- <span class="text-center">{{ $products->links() }}</span> --}}
         </div>
     </div>
 </div>

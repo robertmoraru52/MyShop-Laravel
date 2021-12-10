@@ -21,7 +21,7 @@ class LoginCustomController extends Controller{
         ]);
         $credentials = $request->only('email', 'password');
         if (Auth::attempt($credentials)) {
-                return redirect('/');
+                return redirect('/homepage');
         }
         else{
             return redirect("login")->withSuccess('Login details are not valid');
