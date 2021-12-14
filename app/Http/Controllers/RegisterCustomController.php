@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Auth\Events\Registered;
 
 class RegisterCustomController extends Controller
 {
@@ -26,6 +27,8 @@ class RegisterCustomController extends Controller
         $data = $request->all();
         $user = $this->create($data);
         if($user != 'Error'){
+          event(new Registered($user));
+
           return redirect("login")->withSuccess('Register Successfull');
         }
         else{

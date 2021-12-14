@@ -10,10 +10,10 @@ import RemoveCartComponent from './components/RemoveCartComponent.vue';
 import CartComponent from './components/CartComponent.vue';
 import TotalComponent from './components/TotalComponent.vue';
 import CategorySelectComponent from './components/CategorySelectComponent.vue';
-import Test from './components/Test.vue';
+import CategoryFilterComponent from './components/CategoryFilterComponent.vue';
 
 const vue = new Vue({
     el: '#app',
-    components: {ProductsHomepageComponent, AutocompleteComponent, RemoveCartComponent, CartComponent, TotalComponent,CategorySelectComponent, Test},
+    components: {ProductsHomepageComponent, AutocompleteComponent, RemoveCartComponent, CartComponent, TotalComponent,CategorySelectComponent, CategoryFilterComponent},
 });
  

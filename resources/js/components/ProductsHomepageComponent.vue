@@ -45,6 +45,9 @@ export default {
         this.$root.$on('result-rating', (data) => {
              this.products = data.data ;
         });
+        this.$root.$on('result-filter', (data) => {
+             this.products = data ;
+        });
     },
     created() {
         this.getResults();

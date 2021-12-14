@@ -1,10 +1,7 @@
-@include('header')
+@extends('layouts.master')
+@extends('layouts.message')
 <!-- products start -->
-@if(session()->has('success'))
-<div class="alert alert-success">
-    {{ session()->get('success') }}
-</div>
-@endif
+@section('content')
 <div class="container">
     <div class="mt-5 mb-5">
         <div class="row">
@@ -43,5 +40,5 @@
         </div>
     </div>
 </div>
+@endsection
 <!-- products end -->
-@include('footer')

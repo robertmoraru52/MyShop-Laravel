@@ -78,7 +78,7 @@ class ResetPasswordController extends Controller
         }        
       else
       {
-        return redirect()->to('/');
+        return redirect()->to('homepage');
       }    
     }
 }

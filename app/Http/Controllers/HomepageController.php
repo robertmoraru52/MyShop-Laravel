@@ -30,16 +30,14 @@ class HomepageController extends Controller
     /**
      * Filters homepage collection by category
      */
-    /**
-     * to do adapt this function to vue component
-     */
     public function categoryFilter(Request $request){
       $request->validate([
         'id' => 'required',
       ]);
       $category = Category::find($request->id);
-      
-      return view('homepage',['products' => $category->products()->paginate(6)]);
+      $data = $category->products;
+
+      return response()->json($data);
     }
 
     public function accountView(){

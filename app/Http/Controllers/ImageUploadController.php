@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use App\Jobs\ProcessImageUpload;
 
 class ImageUploadController extends Controller
 {
@@ -23,13 +24,9 @@ class ImageUploadController extends Controller
         ]);
         $imageName = time().'.'.$request->image->extension();  
         $request->image->storeAs('images', $imageName,'public');
-        /* Store $imageName name in DATABASE from HERE */
-        $user = User::find(Auth::user()->id);
-        $user->image = $imageName;
-        $user->save();
+        /* Store $imageName name in DATABASE from HERE */        
+        ProcessImageUpload::dispatch($imageName, auth()->user()->id)->onQueue('upload');
 
-        return back()
-            ->with('success','You have successfully upload image.')
-            ->with('image',$imageName); 
+        return back()->with('success','You have successfully upload image.');
     }
 }
