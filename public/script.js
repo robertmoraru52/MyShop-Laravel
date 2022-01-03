@@ -11,12 +11,7 @@ function showForm() {
 $(function () {
     $('select').selectpicker('render');
 });
-//Data Table
-// $(document).ready(function() {
-//     $('#example').DataTable( {
-//         select: true
-//     } );
-// } );
+
 $ ( function () {
     $('#example').DataTable();
 })

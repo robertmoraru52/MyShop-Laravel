@@ -43,5 +43,5 @@ class WelcomeEmailProcess implements ShouldQueue
         catch(\Exception $e){
             Log::info($e->getMessage());
         }
-}
+    }
 }
